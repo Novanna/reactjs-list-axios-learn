@@ -1,0 +1,93 @@
+{
+    "pengguna": [
+      {
+        "id": 1,
+        "username": "test",
+        "email": "ane@gmail.com",
+        "password": "password"
+      },
+      {
+        "username": "a",
+        "email": "Prosigmaka@gmail.com",
+        "password": "a",
+        "id": 2
+      },
+      {
+        "id": 3
+      },
+      {
+        "username": "ab",
+        "email": "Prosigmaka@gmail.com",
+        "password": "ab",
+        "id": 4
+      }
+    ],
+    "candidate": [
+      {
+        "nama": "Aldy Gunawan",
+        "jenisKelamin": "Laki-laki",
+        "tempatLahir": "sa",
+        "tanggalLahir": "2021-04-24",
+        "alamat": "Gunung",
+        "email": "aaaa@gmail.com",
+        "noHp": "+6282838383883",
+        "id": 1
+      }
+    ],
+    "recipes": [
+      {
+        "tittle": "Soto Betawi",
+        "content": "Soto daging dengan kuah santan",
+        "image": "https://www.unileverfoodsolutions.co.id/dam/global-ufs/mcos/SEA/calcmenu/recipes/ID-recipes/soups/soto-betawi/main-header.jpg",
+        "id": 2
+      },
+      {
+        "tittle": "Seblak",
+        "content": "Makanan pedas bandung",
+        "image": "http://kbu-cdn.com/dk/wp-content/uploads/seblak-poll-pedas-1.jpg",
+        "id": 3
+      },
+      {
+        "tittle": "Bakso Malang",
+        "content": "Bakso dengan pangsit dan tahu bakso",
+        "image": "https://cdn-2.tstatic.net/travel/foto/bank/images/bakso-gun.jpg",
+        "id": 4
+      },
+      {
+        "tittle": "Sate Taichan",
+        "content": "Sate terhits dan pedas",
+        "image": "https://www.unileverfoodsolutions.co.id/dam/global-ufs/mcos/SEA/calcmenu/recipes/ID-recipes/chicken-&-other-poultry-dishes/taichan-satay/main-header.jpg",
+        "id": 5
+      },
+      {
+        "tittle": "Tekwan ",
+        "content": "Makanan khas palembang",
+        "image": "https://www.piknikdong.com/wp-content/uploads/2020/11/Resep-Tekwan-Sederhana.jpg",
+        "id": 6
+      },
+      {
+        "tittle": "Ketoprak",
+        "content": "Bukan gado-gado",
+        "image": "https://cdn.idntimes.com/content-images/post/20210318/ketop-298f44cef3f76414e53f5c8017c1ea58_600x400.jpg",
+        "id": 7
+      },
+      {
+        "tittle": "Rendang",
+        "content": "The most delicious food in the world",
+        "image": "https://img.inews.co.id/media/822/files/inews_new/2021/05/10/IMG_10052021_175604__822_x_430_piksel_.jpg",
+        "id": 8
+      },
+      {
+        "tittle": "Sate lilit",
+        "content": "Sate dari bali ",
+        "image": "https://cdn.idntimes.com/content-images/community/2020/10/sate-8dbfbb304d1f39a8bf072d6d3761b725_600x400.jpg",
+        "id": 9
+      },
+      {
+        "tittle": " Pempek",
+        "content": "Makanan wong kito galo",
+        "image": "https://asset.kompas.com/crops/LPTbmb14tDCmSay2EAvNihccDv0=/0x47:909x653/750x500/data/photo/2020/11/20/5fb76c4aa04bc.jpg",
+        "id": 10
+      }
+    ]
+  }
