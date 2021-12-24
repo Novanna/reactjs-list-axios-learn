@@ -28,10 +28,12 @@ export default function Recipes() {
 
   const postReqHandler = async () => {
     const datapost = {tittle, content, image};
-    const res = await axios.post(
+    const response = await axios.post(
       "http://localhost:1234/recipes", datapost
     );
-    setRefresh(!refresh)
+    if (response.status===201){
+      setRefresh(!refresh)
+    }
     console.log('posted')
     setPosted(true)
     setTittle("")
@@ -47,6 +49,7 @@ export default function Recipes() {
     })
   },[refresh])
 
+  //doRefresh method, itu yang dikirim. Bukan statenya.
   const doRefresh = () => {
     console.log('doRefresh')
     setRefresh(!refresh)
@@ -106,7 +109,8 @@ export default function Recipes() {
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
             {cards.map((card) => (
-              <RecipeCard key={card.id} card={card} setRefresh={setRefresh} refresh={refresh}/>
+              // <RecipeCard key={card.id} card={card} setRefresh={setRefresh} refresh={refresh} />
+              <RecipeCard key={card.id} card={card} doRefresh={doRefresh}/>
             ))}
           </Grid>
         </Container>

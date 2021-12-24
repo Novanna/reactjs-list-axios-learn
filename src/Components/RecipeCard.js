@@ -3,7 +3,7 @@ import {Button, Card, CardActions, CardContent, CardMedia, Grid, Typography} fro
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import {makeStyles} from "@mui/styles";
-import {useRef} from "react";
+import {useRef, useState} from "react";
 import axios from 'axios';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -29,18 +29,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const RecipeCard = ({ card, refresh, setRefresh }) => {
+const RecipeCard = ({ card, doRefresh }) => {
     const classes = useStyles();
-    console.log(card)
+    console.log(card) //card isinya object yaampun
     
     //-------------DELETE--------------------------- //
-    // const [action, setAction] = useState("");
-    const deleteReqHandler = (e, card )=> {
+    const deleteReqHandler = async (e, card )=> {
         e.preventDefault();
-        axios.delete( 'http://localhost:1234/recipes/' + card.id );
-        //Udah berhasil delete tapi gak auto refresh
-        console.log(refresh);
-       setRefresh(!refresh);
+        const response = await axios.delete( 'http://localhost:1234/recipes/' + card.id );
+        if(response.status===200){
+          doRefresh()
+        }
     }
     //---------------------------------------------//
 
@@ -50,28 +49,34 @@ const RecipeCard = ({ card, refresh, setRefresh }) => {
     const putImage = useRef(null);
     const [updated, setUpdated] = React.useState(false);
     
-    const putReqHandler = (e, card, putTittle, putContent, putImage )=> {
-        e.preventDefault();
-        
+    const putReqHandler = async (e, card)=> {
+        e.preventDefault(); ///the default action of the event will not be triggered.
         const putData = {
-            tittle: putTittle.current.value,
-            content: putContent.current.value,
-            image: putImage.current.value,
+            tittle: formData.tittle,
+            content: formData.content,
+            image: formData.image,
         };
-
-        axios.put( 'http://localhost:1234/recipes/' + card.id, putData );
-        
-        // console.log('updated');
+        const response = await axios.put('http://localhost:1234/recipes/' + card.id, putData);
         setUpdated(true);
-        // console.log(refresh);
-        setRefresh(!refresh);
+        if(response.status===200){
+          doRefresh()
+        }
     }
     ///----------------------------------------------///
 
     
     //--------------MODAL-----------------------------//
     const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
+    const handleOpen = (e) => {
+      e.preventDefault();
+      setFormData({
+        tittle:card.tittle,
+        content: card.content,
+        image: card.image
+      })
+      setOpen(true);
+
+    }
     const handleClose = () => setOpen(false);
     const style = {
         position: 'absolute',
@@ -87,6 +92,16 @@ const RecipeCard = ({ card, refresh, setRefresh }) => {
         p: 4,
     };
     //-----------------------------------------------//   
+    const [formData, setFormData] = useState({
+      tittle:'',
+      content: '',
+      image: ''
+    });
+    const handleChange = (e) => {
+      let data = {...formData};
+      data[e.target.name] = e.target.value;
+      setFormData(data)
+    };
 
     return (
         <> 
@@ -134,7 +149,7 @@ const RecipeCard = ({ card, refresh, setRefresh }) => {
                 </Card>
             </Grid>
         {/* --------------------------------------------------------------- */}
-        
+        {/* -------MODAL------- */}
         <Modal open={open} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description" onClose={handleClose}>
           <Box sx={style}>
             <Typography variant="h5" align="left" color="textPrimary" marginBottom="15px" gutterBottom>
@@ -143,29 +158,31 @@ const RecipeCard = ({ card, refresh, setRefresh }) => {
             <Box sx={{ width: 400, maxWidth: '100%'}}>
               <FormControl>
                 <InputLabel htmlFor="component-outlined">Food Name</InputLabel>
-                <OutlinedInput id="component-outlined" inputRef={putTittle} 
-                  label="Food Name"
-                />
+                {/* <OutlinedInput id="component-outlined" inputRef={putTittle} label="Food Name"/> */}
+                <OutlinedInput id="component-outlined" name='tittle' value={formData.tittle} onChange={handleChange} label="Food Name"/>
               </FormControl>
             </Box>
             <Box component="form" sx={{ '& > :not(style)': { m: 0, width: '25ch',marginTop: 2, marginBottom:2 }}}
               noValidate autoComplete="off">
-              <TextField id="outlined-multiline-static" label="Food Description" multiline
-                rows={3} inputRef={putContent}/>
+              {/* <TextField id="outlined-multiline-static" label="Food Description" multiline
+                rows={3} inputRef={putContent} onChange={handleChange} value={card.content}/> */}
+              <TextField id="outlined-multiline-static"  name='content' label="Food Description" multiline
+                rows={3} onChange={handleChange} value={formData.content}/>
             </Box>
             <Box
               sx={{width: 400, maxWidth: '100%', marginBottom:2}}
             >
               <FormControl>
                 <InputLabel htmlFor="component-outlined">Image Link</InputLabel>
-                <OutlinedInput id="component-outlined" inputRef={putImage} label="Image Source" />
+                {/* <OutlinedInput id="component-outlined" inputRef={putImage} label="Image Source" /> */}
+                <OutlinedInput id="component-outlined"  name='image' value={formData.image} onChange={handleChange}  label="Image Source" />
               </FormControl>
             </Box>
             {/* Button post */}
             <Button variant="contained" onClick={(e) => putReqHandler(e, card, putTittle, putContent, putImage)}>
               Update
             </Button>
-            {/* ---------------- */}
+            {/* ------- NOTIF UPDATED --------- */}
             <Collapse in={updated}>
               <Alert 
                 action={

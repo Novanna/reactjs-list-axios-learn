@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import Header from './Header'
-import Sidebar from './Sidebar'
+// import Sidebar from './Sidebar'
 import Footer from './Footer'
 import Recipes from '../Components/Recipes'
 import LayoutStyles from './LayoutStyle'
@@ -21,7 +21,7 @@ const Base = ({match}) => {
         <div className={classes.root}>
             <CssBaseline/>
             <Header toggleDrawer={toggleDrawer} open={open}/>
-            <Sidebar toggleDrawer={toggleDrawer} open={open}/>
+            {/* <Sidebar toggleDrawer={toggleDrawer} open={open}/> */}
             <main className={classes.content}>
                 <div className={classes.appBarSpacer}/>
                 <Routes>
